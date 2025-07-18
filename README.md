@@ -1,36 +1,49 @@
 ﻿### Project File Structure
+
 apartment-search-app/
 │
-├── backend/                            # Python FastAPI/Flask backend
+├── backend/                # Python (FastAPI/Flask) backend
 │   ├── app/
-│   │   ├── models/
-│   │   ├── routes/
-│   │   ├── db/
-│   │   ├── services/
-│   │   ├── utils/
-│   │   └── main.py                     # Entrypoint for FastAPI/Flask
-│   ├── requirements.txt
-│   ├── Dockerfile                      # Backend Docker image
-│   └── .env                            # Backend environment variables
+│   │   ├── models/         # Python classes & Pydantic models
+│   │   │   ├── apartment.py
+│   │   │   ├── user.py
+│   │   │   ├── location.py
+│   │   │   ├── features.py
+│   │   │   └── __init__.py
+│   │   ├── routes/         # API endpoints
+│   │   │   ├── listings.py
+│   │   │   ├── users.py
+│   │   │   └── __init__.py
+│   │   ├── db/             # Database setup & session config
+│   │   │   ├── connection.py
+│   │   │   ├── models.py   # SQLAlchemy or Tortoise ORM models
+│   │   │   └── __init__.py
+│   │   ├── services/       # Logic/validation/business rules
+│   │   ├── utils/          # Utility functions (e.g., image upload, auth)
+│   │   └── main.py         # App entrypoint
+│   └── requirements.txt
 │
-├── frontend/                           # React frontend
+├── frontend/               # React frontend
 │   ├── public/
 │   ├── src/
 │   │   ├── components/
+│   │   │   ├── ListingCard.jsx
+│   │   │   ├── FilterBar.jsx
+│   │   │   └── ListingForm.jsx
 │   │   ├── pages/
-│   │   ├── services/
-│   │   └── App.jsx
-│   ├── package.json
-│   ├── Dockerfile                      # Frontend Docker image
-│   └── .env                            # Frontend environment variables
+│   │   │   ├── HomePage.jsx
+│   │   │   ├── ListingDetail.jsx
+│   │   │   ├── AddListing.jsx
+│   │   ├── services/       # Axios calls to backend
+│   │   ├── App.jsx
+│   │   ├── index.js
+│   └── package.json
 │
-├── nginx/                              # (Optional) Reverse proxy config
-│   └── default.conf                    # Nginx config file
+├── docs/                   # API or project documentation
 │
-├── docker-compose.yml                  # Multi-container orchestration
-├── .env                                # Global environment variables
+├── .env                    # Env vars (API keys, DB credentials)
 ├── README.md
-└── docs/
+└── docker-compose.yml      # Optional for containerized setup
 
 
 <img width="971" height="683" alt="image" src="https://github.com/user-attachments/assets/3bab6f8e-5fd3-4b15-a46f-fb7954abdd06" />
