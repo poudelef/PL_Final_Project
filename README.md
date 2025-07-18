@@ -32,3 +32,7 @@ apartment-search-app/
 ├── README.md
 └── docs/
 
+
+<img width="971" height="683" alt="image" src="https://github.com/user-attachments/assets/3bab6f8e-5fd3-4b15-a46f-fb7954abdd06" />
+
+
