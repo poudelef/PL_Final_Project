@@ -1,3 +1,4 @@
+
 class LandLord_info:
     def __init__(self, name=None, location=None, phone=None, email=None, age=None, gender=None):
         self.name = name
@@ -6,6 +7,7 @@ class LandLord_info:
         self.email = email
         self.age = age
         self.gender = gender
+      
 
     def get_landLord_name(self):
         return self.name
@@ -19,7 +21,7 @@ class LandLord_info:
         return self.age
     def get_gender(self):
         return self.gender 
-    
+  
 
 class Appartment_info:
     def __init__(self, landlord: LandLord_info, app_location=None, bedrooms=None, bathrooms=None, kitchen=False, balcony=False, hall=False, price=0):
