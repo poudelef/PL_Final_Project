@@ -1,8 +1,5 @@
-from backend.apps.modules.users import User_info
-from backend.apps.modules.landlord.apartmentListing import ApparmentList
-
 class SearchFilter:
-    def __init__(self, location=None, min_price=None,max_price =None, bedrooms=None, bathrooms=None, kitchen=None, balcony=None, hall=None):
+    def __init__(self, location=None, min_price=None, max_price=None, bedrooms=None, bathrooms=None, kitchen=None, balcony=None, hall=None):
         self.location = location
         self.min_price = min_price
         self.max_price = max_price
@@ -13,23 +10,21 @@ class SearchFilter:
         self.hall = hall
 
     def get_location(self):
-        return self.location   
+        return self.location
     def get_min_price(self):
         return self.min_price
     def get_max_price(self):
-        return self.max_price   
+        return self.max_price
     def get_bedrooms(self):
         return self.bedrooms
     def get_bathrooms(self):
-        return self.bathrooms   
+        return self.bathrooms
     def get_kitchen(self):
-        return self.kitchen 
+        return self.kitchen
     def get_balcony(self):
-        return self.balcony 
+        return self.balcony
     def get_hall(self):
         return self.hall
-    
-    
 
     def filter_apartments(self, apartment_list):
         filtered_apartments = []
@@ -50,7 +45,5 @@ class SearchFilter:
                 continue
             if (self.hall is not None and apartment.get_hall() != self.hall):
                 continue
-            
             filtered_apartments.append(apartment)
-        
-        return filtered_apartments
+        return filtered_apartments 
