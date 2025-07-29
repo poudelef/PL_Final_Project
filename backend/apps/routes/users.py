@@ -19,7 +19,8 @@ async def get_users():
 # Post User method
 @router.post("/users")
 async def create_user(user: Users):
-    collection_users.insert_one(dict(user))
+    result = collection_users.insert_one(dict(user))
+    return {"message": "User created", "id": str(result.inserted_id)}
 
  # Put request method
 @router.put("/users/{user_id}")

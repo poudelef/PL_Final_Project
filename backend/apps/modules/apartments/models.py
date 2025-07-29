@@ -95,11 +95,3 @@ class Appartment_info:
     def summary(self):
         return f"Apartment at {self.__app_location} for ${self.__price} owned by {self.__landlord.get_name()}."
 
-
-# 
-# if __name__ == "__main__":
-#     landlord = LandLord_info("Alice", "Downtown", "123456", "alice@mail.com", 40, "Female")
-#     apartment = Appartment_info(landlord, "Downtown", 2, 1, kitchen=True, price=1200)
-
-#     print(apartment.summary())
-#     print("Landlord Email:", apartment.get_landlord().get_email())
