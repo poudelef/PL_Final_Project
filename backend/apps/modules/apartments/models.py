@@ -15,15 +15,12 @@ class Appartment(BaseModel):
     app_location: str
     bedrooms: int
     bathrooms: int
-    kitchen: bool = False
-    balcony: bool = False
-    hall: bool = False
+    kitchen: bool 
+    balcony: bool
+    hall: bool 
     price: float
-    available: bool = True
+    available: bool
     landlord: LandLord
-
-
-
 
 class LandLord_info:
     def __init__(self, name, location, phone, email, age, gender):

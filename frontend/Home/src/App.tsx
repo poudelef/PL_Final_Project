@@ -1,8 +1,10 @@
 import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import api from "./api";
+import { Link, useNavigate } from "react-router-dom";
 
 function App() {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -36,9 +38,11 @@ function App() {
     await api.post("/users/", formData);
     console.log("Form Submitted:");
     console.log(formData);
-    // setFormData({
+    navigate("/appartment");
+  };
 
-    // });
+  const goToAppartment = () => {
+    navigate("/appartment");
   };
 
   return (

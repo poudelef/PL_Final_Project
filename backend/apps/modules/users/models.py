@@ -26,3 +26,45 @@ class Users(BaseModel):
         #Documentation hints
 
     # Users model, metadata is provided using the Field() function from Pydantic.    
+class Users_info():
+    def __init__(self, name, email, phone, age, address, city, state, zip):
+        self.__name = name
+        self.__email = email
+        self.__phone = phone
+        self.__age = age
+        self.__address = address
+        self.__city = city
+        self.__state = state
+        self.__zip = zip
+
+    # Getters
+    def get_name(self):
+        return self.__name
+
+    def get_email(self):
+        return self.__email
+
+    def get_phone(self):
+        return self.__phone
+
+    def get_age(self):
+        return self.__age
+
+    def get_address(self):
+        return self.__address
+
+    def get_city(self):
+        return self.__city
+
+    def get_state(self):
+        return self.__state
+
+    def get_zip(self):
+        return self.__zip
+
+    # Setters
+    def set_email(self, new_email):
+        self.__email = new_email
+
+    def set_phone(self, new_phone):
+        self.__phone = new_phone    
