@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import AptCard from "./components/apt_card";
+import { useLocation } from "react-router-dom";
 
 interface Landlord {
   name: string;
@@ -25,6 +26,7 @@ interface Apartment {
 
 function Appartment() {
   const [apartments, setApartments] = useState<Apartment[]>([]);
+  const userData = useLocation().state?.userData;
 
   useEffect(() => {
     axios
@@ -44,7 +46,7 @@ function Appartment() {
       <div className="row">
         {apartments.map((apt) => (
           <div className="col-md-6 mb-4" key={apt.app_location}>
-            <AptCard apt={apt} />
+            <AptCard apt={apt} userData={userData} />
           </div>
         ))}
       </div>

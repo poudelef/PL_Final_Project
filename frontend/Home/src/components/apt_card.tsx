@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 interface LandlordProps {
   name: string;
   email: string;
@@ -21,11 +22,13 @@ interface ApartmentProps {
 
 type AptCardProps = {
   apt: ApartmentProps;
+  userData: any; // Adjust type as needed
 };
 
-const AptCard = ({ apt }: AptCardProps) => {
+const AptCard = ({ apt, userData }: AptCardProps) => {
+  const navigate = useNavigate();
   const onApplyClick = () => {
-    alert(`Applied to ${apt.app_location}`);
+    navigate("/apply", { state: { user: userData, apartment: apt } });
   };
 
   return (

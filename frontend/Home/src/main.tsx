@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import App from "./App.tsx";
 import Appartment from "./appartment.tsx";
+import Apply from "./components/apply.tsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 createRoot(document.getElementById("root")!).render(
@@ -12,6 +13,7 @@ createRoot(document.getElementById("root")!).render(
       <Routes>
         <Route path="/" element={<App />} />
         <Route path="/appartment" element={<Appartment />} />
+        <Route path="/apply" element={<Apply />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>

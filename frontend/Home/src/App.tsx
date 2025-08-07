@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import api from "./api";
 import { Link, useNavigate } from "react-router-dom";
+import "./App.css";
 
 function App() {
   const navigate = useNavigate();
@@ -38,7 +39,7 @@ function App() {
     await api.post("/users/", formData);
     console.log("Form Submitted:");
     console.log(formData);
-    navigate("/appartment");
+    navigate("/appartment", { state: { userData: formData } });
   };
 
   const goToAppartment = () => {
