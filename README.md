@@ -1,1 +1,2 @@
-   uvicorn backend.main:app --reload
+uvicorn backend.main:app --reload
+npm run dev
