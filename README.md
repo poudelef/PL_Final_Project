@@ -30,10 +30,11 @@ It is built with **FastAPI** for the backend and **React** for the frontend.
 ### Backend Setup
 
 1. Navigate to the backend folder:
+
    ```bash
-    cd backend
+
     pip install -r requirements.txt
-    uvicorn main:app --reload
+    uvicorn backend.main:app --reload
     The backend will run at:
     http://localhost:8000
    ```
