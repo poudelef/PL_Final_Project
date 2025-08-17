@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import AptCard from "./components/apt_card";
+import AptCard from "../components/apt_card";
 import { useLocation } from "react-router-dom";
 
 interface Landlord {

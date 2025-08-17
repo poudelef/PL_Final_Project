@@ -1,7 +1,7 @@
 import React, { createContext } from "react";
 
 type userContextType = {
-  role: "admin" | "landlord" | "user";
+  role: "admin" | "landlord" | "apartments" | "user";
   authenticated: boolean;
 };
 
@@ -15,7 +15,7 @@ type Props = { children: React.ReactNode };
 // it means whatever is nested inside the provider will be rendered
 
 const ContextProvider: React.FC<Props> = ({ children }) => {
-  const role: userContextType["role"] = "admin";
+  const role: userContextType["role"] = "user";
   const authenticated = true; // Set this to false if we don't want to give access
   return (
     <userContext.Provider value={{ role, authenticated }}>

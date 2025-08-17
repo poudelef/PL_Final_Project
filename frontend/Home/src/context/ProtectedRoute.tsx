@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import { userContext } from "./ContextProvider";
 import { Navigate, useLocation } from "react-router-dom";
 
-type UserRole = "admin" | "landlord" | "user";
+type UserRole = "admin" | "landlord" | "apartments" | "user";
 
 type ProtectedRouteProps = {
   children: React.ReactNode;

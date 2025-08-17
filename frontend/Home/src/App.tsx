@@ -39,12 +39,12 @@ function App() {
     await api.post("/users/", formData);
     console.log("Form Submitted:");
     console.log(formData);
-    navigate("/appartment", { state: { userData: formData } });
+    navigate("/apartments", { state: { userData: formData } });
   };
 
-  const goToAppartment = () => {
-    navigate("/appartment");
-  };
+  // const goToAppartment = () => {
+  //   navigate("/appartment");
+  // };
 
   return (
     <div className="container-fluid" style={{ minHeight: "100vh" }}>

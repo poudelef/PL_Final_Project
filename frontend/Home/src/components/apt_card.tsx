@@ -28,7 +28,7 @@ type AptCardProps = {
 const AptCard = ({ apt, userData }: AptCardProps) => {
   const navigate = useNavigate();
   const onApplyClick = () => {
-    navigate("/apply", { state: { user: userData, apartment: apt } });
+    navigate("./apply", { state: { user: userData, apartment: apt } });
   };
 
   return (
