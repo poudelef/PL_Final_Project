@@ -22,7 +22,7 @@ interface ApartmentProps {
 
 type AptCardProps = {
   apt: ApartmentProps;
-  userData: any; // Adjust type as needed
+  userData: any;
 };
 
 const AptCard = ({ apt, userData }: AptCardProps) => {

@@ -55,3 +55,7 @@ It is built with **FastAPI** for the backend and **React** for the frontend.
 ```bash
 git clone https://github.com/poudelef/PL_Final_Project
 ```
+
+TODO
+
+Need to work on login based on roles
