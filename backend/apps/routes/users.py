@@ -1,8 +1,8 @@
 
-from fastapi import APIRouter
+from fastapi import APIRouter, HTTPException, status
 from backend.apps.modules.users.schemas import list_users
 from backend.apps.config.database import collection_users
-from backend.apps.modules.users.models import Users
+from backend.apps.modules.users.models import Users, UserLogin
 from bson import ObjectId
 
 router = APIRouter()
@@ -38,3 +38,24 @@ async def delete_user(user_id: str):
         return {"message": "User deleted successfully"}
     else:
         return {"message": "User not found"}, 404
+    
+
+
+@router.post("/auth/login")
+def login_user(login: UserLogin):
+    doc = collection_users.find_one({"email": login.email})
+    if not doc:
+        raise HTTPException(status_code=404, detail="User not found.")
+    if login.password != doc["password"]:
+        raise HTTPException(status_code=401, detail="Invalid credentials.")
+    if login.role and doc.get("role") != login.role:
+        raise HTTPException(status_code=403, detail="Role mismatch.")
+    return {
+        "message": "Login successful",
+        "user": {
+            "id": str(doc["_id"]),
+            "name": doc["name"],
+            "email": doc["email"],
+            "role": doc.get("role"),
+        },
+    }

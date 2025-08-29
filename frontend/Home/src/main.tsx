@@ -2,44 +2,42 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import App from "./App.tsx";
-import Appartment from "./pages/appartment.tsx";
-import Apply from "./pages/apply.tsx";
+import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./context/ProtectedRoute";
+
 import "bootstrap/dist/css/bootstrap.min.css";
-import User from "./pages/User.tsx";
-import Admin_page from "./pages/Admin.tsx";
-import LandLord_page from "./pages/Landlord.tsx";
-import UnAuthorizedPage from "./pages/UnAuthorizedPage.tsx";
-import Apply_page from "./pages/apply.tsx";
-import ContextProvider from "./context/ContextProvider.tsx";
-import ProtectedRoute from "./context/ProtectedRoute.tsx";
+
+import Login from "./auth/Login";
+import Signup from "./auth/Signup";
+import Appartment from "./pages/appartment";
+import Apply_page from "./pages/apply";
+import User from "./pages/User";
+import LandLord_page from "./pages/Landlord";
+import UnAuthorizedPage from "./pages/UnAuthorizedPage";
 
 createRoot(document.getElementById("root")!).render(
-  <ContextProvider>
-    <StrictMode>
+  <StrictMode>
+    <AuthProvider>
       <BrowserRouter>
         <Routes>
-          {/* <Route path="/" element={<App />} /> */}
+          {/* Public */}
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Signup />} />
+          <Route path="/UnAuthorized_Access" element={<UnAuthorizedPage />} />
+
+          {/* Protected */}
           <Route
             path="/apartments"
             element={
-              <ProtectedRoute roles={["admin", "user", "landlord"]}>
+              <ProtectedRoute roles={["Tenant", "Landlord"]}>
                 <Appartment />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="/Admin"
-            element={
-              <ProtectedRoute roles={["admin"]}>
-                <Admin_page />
               </ProtectedRoute>
             }
           />
           <Route
             path="/landlord"
             element={
-              <ProtectedRoute roles={["admin", "landlord"]}>
+              <ProtectedRoute roles={["Landlord"]}>
                 <LandLord_page />
               </ProtectedRoute>
             }
@@ -47,7 +45,7 @@ createRoot(document.getElementById("root")!).render(
           <Route
             path="/user"
             element={
-              <ProtectedRoute roles={["apartments", "user"]}>
+              <ProtectedRoute roles={["Tenant"]}>
                 <User />
               </ProtectedRoute>
             }
@@ -55,17 +53,16 @@ createRoot(document.getElementById("root")!).render(
           <Route
             path="/apartments/apply"
             element={
-              <ProtectedRoute roles={["admin", "user"]}>
+              <ProtectedRoute roles={["Tenant"]}>
                 <Apply_page />
               </ProtectedRoute>
             }
           />
-          <Route path="/UnAuthorized_Access" element={<UnAuthorizedPage />} />
-          <Route path="/appartment" element={<Appartment />} />
-          <Route path="/apply" element={<Apply />} />
-          <Route path="*" element={<App />} />
+
+          {/* Fallback */}
+          <Route path="*" element={<Login />} />
         </Routes>
       </BrowserRouter>
-    </StrictMode>
-  </ContextProvider>
+    </AuthProvider>
+  </StrictMode>
 );

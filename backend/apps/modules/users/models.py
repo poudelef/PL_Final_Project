@@ -1,5 +1,8 @@
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, EmailStr
+from typing import Literal, Optional
+
+Role = Literal["Tenant", "Landlord"]
 
 class Users(BaseModel):
     name: str = Field(..., description="Name of the user")
@@ -8,10 +11,13 @@ class Users(BaseModel):
     phone: str = Field(..., description="Phone number of the user")
     age: int = Field(..., ge=0, description="Age of the user")
     address: str = Field(..., description="Address of the user")
-    city: str = Field(..., description="City of the user")
-    state: str = Field(..., description="State of the user")
-    zip: str = Field(..., description="Zip code of the user")
+    role: Role
+    
 
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
+    role: Optional[Role] = None
     # BaseModel us Pydantic base class used to define data models with validation.
     # Field allows to add metadata, constraints, and descriptions to model fields.
     # Required filed(... means the field is mandatory.
@@ -27,15 +33,14 @@ class Users(BaseModel):
 
     # Users model, metadata is provided using the Field() function from Pydantic.    
 class Users_info():
-    def __init__(self, name, email, phone, age, address, city, state, zip):
+    def __init__(self, name, email, phone, age, address, password):
         self.__name = name
         self.__email = email
+        self.__password = password
         self.__phone = phone
         self.__age = age
         self.__address = address
-        self.__city = city
-        self.__state = state
-        self.__zip = zip
+        
 
     # Getters
     def get_name(self):
@@ -43,6 +48,9 @@ class Users_info():
 
     def get_email(self):
         return self.__email
+    
+    def get_password(self):
+        return self.__password
 
     def get_phone(self):
         return self.__phone
@@ -53,14 +61,7 @@ class Users_info():
     def get_address(self):
         return self.__address
 
-    def get_city(self):
-        return self.__city
 
-    def get_state(self):
-        return self.__state
-
-    def get_zip(self):
-        return self.__zip
 
     # Setters
     def set_email(self, new_email):

@@ -18,11 +18,6 @@ function App() {
     zip: "",
   });
 
-  // const fetchItems = async () => {
-  //   const response = await api.get("/users/");
-  //   setFormData(response.data);
-  // };
-
   useEffect(() => {
     // fetchItems();
   }, []);

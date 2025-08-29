@@ -9,9 +9,8 @@ def individual_User(user) ->dict:
         "phone": user["phone"],
         "age": user["age"],
         "address": user["address"],
-        "city": user["city"],
-        "state": user["state"],
-        "zip": user["zip"]
+        "role": user["role"]
+        
         
     }
 

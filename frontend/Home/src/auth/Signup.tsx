@@ -3,6 +3,7 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import api from "../api";
 import { useNavigate } from "react-router-dom";
 
 function Signup() {
@@ -14,37 +15,59 @@ function Signup() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
 
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    password: "",
+    phone: "",
+    age: 0,
+    address: "",
+    role: "",
+  });
+
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
+    const { id, value } = e.target;
+    setFormData((prev) => ({ ...prev, [id]: value }));
+  };
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setError("");
 
+    const { name, email, password, role } = formData;
     if (!name || !email || !password || !role) {
       setError("Please fill all the fields");
       return;
     }
 
     setLoading(true);
-    // Payload is simple JavaScript object that will collect all the form state
-    // into single object and send it to the backend using axios
-    try {
-      const payload = {
-        name: name.trim(),
-        email: email.trim(),
-        password,
-        role: role.trim(),
-      };
-      const res = await axios.post(
-        "http://localhost:8080/api/v1/auth/register",
-        payload
-      );
+    const payload = {
+      name: formData.name.trim(),
+      email: formData.email.trim().toLowerCase(),
+      password: formData.password,
+      role: formData.role as "Tenant" | "Landlord",
+      address: formData.address.trim(),
+      phone: String(formData.phone).trim(),
+      age: Number(formData.age),
+    };
 
+    try {
+      const res = await api.post("/users", payload); // baseURL http://127.0.0.1:8000
       if (res.status >= 200 && res.status < 300) {
-        navigate("/login");
+        navigate("/apartments", { state: { userData: payload } });
       } else {
         setError("Signup failed. Try again.");
       }
-    } catch (err) {
-      setError("Signup failed. Try again.");
+    } catch (err: any) {
+      console.error("POST /users failed:", err?.response || err);
+      setError(
+        err?.response?.data?.message ||
+          err?.response?.statusText ||
+          err?.message ||
+          "Signup failed. Try again."
+      );
     } finally {
       setLoading(false);
     }
@@ -72,11 +95,11 @@ function Signup() {
             <input
               id="name"
               type="text"
-              placeholder="Enter Name"
-              name="email"
-              value={name}
+              placeholder="Full Name"
+              name="name"
+              value={formData.name}
               className="form-control rounded-0"
-              onChange={(e) => setName(e.target.value)}
+              onChange={handleChange}
               required
             ></input>
           </div>
@@ -90,9 +113,9 @@ function Signup() {
               type="email"
               placeholder="Enter Email"
               name="email"
-              value={email}
+              value={formData.email}
               className="form-control rounded-0"
-              onChange={(e) => setEmail(e.target.value)}
+              onChange={handleChange}
               required
             ></input>
           </div>
@@ -106,8 +129,8 @@ function Signup() {
               type="password"
               placeholder="Password"
               name="password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={formData.password}
+              onChange={handleChange}
               minLength={8}
               required
             ></input>
@@ -121,15 +144,55 @@ function Signup() {
               id="role"
               name="role"
               className="form-select rounded-0"
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
+              value={formData.role}
+              onChange={handleChange}
               required
             >
               <option value="">Select role…</option>
-              <option value="Tentant">Tennant</option>
+              <option value="Tenant">Tenant</option>
               <option value="LandLord">Landlord</option>
             </select>
           </div>
+          <div className="form-group col-md-6">
+            <label htmlFor="address">Address</label>
+            <input
+              type="text"
+              className="form-control"
+              id="address"
+              value={formData.address}
+              onChange={handleChange}
+              placeholder="1234 Main St"
+            />
+          </div>
+          <div className="mb-3">
+            <label htmlFor="phone">
+              <strong>Phone</strong>
+            </label>
+            <input
+              id="phone"
+              type="number"
+              placeholder="Phone Number"
+              name="phone"
+              value={formData.phone}
+              onChange={handleChange}
+              required
+            ></input>
+          </div>
+          <div className="mb-3">
+            <label htmlFor="age">
+              <strong>Age</strong>
+            </label>
+            <input
+              id="age"
+              type="number"
+              placeholder="Age"
+              name="age"
+              value={formData.age}
+              onChange={handleChange}
+              required
+            ></input>
+          </div>
+
           <button type="submit" className="btn btn-success w-100 rounded-0">
             {loading ? "Signing Up..." : "Sign Up"}
           </button>
@@ -139,7 +202,7 @@ function Signup() {
           to="/login"
           className="btn btn-default border w-100 bg-light rounded-0 text-decoration-none"
         >
-          Login{" "}
+          Login
         </Link>
       </div>
     </div>
