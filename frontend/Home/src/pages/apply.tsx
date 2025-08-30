@@ -1,8 +1,57 @@
+// src/pages/apply.tsx
+import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
+import api from "../api";
+import { useAuth } from "../context/AuthContext";
+
+type User = {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  age: number;
+  address: string;
+  role: "Tenant" | "Landlord";
+};
+
+type Apartment = {
+  app_location: string;
+  price: number;
+  bedrooms: number;
+  bathrooms: number;
+  kitchen: boolean;
+  balcony: boolean;
+  hall: boolean;
+  landlord: { name: string };
+};
 
 function Apply() {
   const location = useLocation();
-  const { user, apartment } = location.state || {};
+  const { user: authUser } = useAuth(); // user from context: { id, name, email, role }
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+  const apartment: Apartment | undefined = (location.state as any)?.apartment;
+
+  useEffect(() => {
+    // If we have a logged-in user, fetch the full record from backend
+    if (!authUser?.id) {
+      setLoading(false);
+      return;
+    }
+    const run = async () => {
+      try {
+        const res = await api.get<User>(`/users/${authUser.id}`);
+        setUser(res.data);
+      } catch (e) {
+        console.error("Failed to fetch user:", e);
+      } finally {
+        setLoading(false);
+      }
+    };
+    run();
+  }, [authUser?.id]);
+
+  if (loading) return <div className="container p-3">Loading…</div>;
 
   return (
     <div className="container">
@@ -25,8 +74,7 @@ function Apply() {
                 <strong>Age:</strong> {user.age}
               </p>
               <p>
-                <strong>Address:</strong> {user.address}, {user.city},{" "}
-                {user.state}, {user.zip}
+                <strong>Address:</strong> {user.address}
               </p>
             </>
           ) : (
@@ -61,7 +109,7 @@ function Apply() {
                 <strong>Hall:</strong> {apartment.hall ? "Yes" : "No"}
               </p>
               <p>
-                <strong>Landlord:</strong> {apartment.landlord.name}
+                <strong>Landlord:</strong> {apartment.landlord?.name}
               </p>
             </>
           ) : (

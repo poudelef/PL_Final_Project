@@ -1,6 +1,6 @@
 
 from fastapi import APIRouter, HTTPException, status
-from backend.apps.modules.users.schemas import list_users
+from backend.apps.modules.users.schemas import list_users, individual_User
 from backend.apps.config.database import collection_users
 from backend.apps.modules.users.models import Users, UserLogin
 from bson import ObjectId
@@ -11,10 +11,15 @@ router = APIRouter()
 def intro():
     return {"message": "Welcome to the User Management API"}
 
-@router.get("/users")
-async def get_users():
-    users = list_users(collection_users.find())
-    return users
+@router.get("/users/{user_id}")
+async def get_user(user_id: str):
+    try:
+        doc = collection_users.find_one({"_id": ObjectId(user_id)})
+    except Exception:
+        raise HTTPException(status_code=400, detail="Invalid user id.")
+    if not doc:
+        raise HTTPException(status_code=404, detail="User not found.")
+    return individual_User(doc)
 
 # Post User method
 @router.post("/users")

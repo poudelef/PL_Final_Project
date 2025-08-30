@@ -5,7 +5,6 @@ def individual_User(user) ->dict:
         "id": str(user["_id"]),
         "name": user["name"],
         "email": user["email"],
-        "password": user["password"],
         "phone": user["phone"],
         "age": user["age"],
         "address": user["address"],
