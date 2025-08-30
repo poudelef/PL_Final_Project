@@ -2,14 +2,17 @@
 import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../api";
+import { useAuth } from "../context/AuthContext";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState<"Tenant" | "Landlord" | "">("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+
   const navigate = useNavigate();
-  const [role, setRole] = useState<"Tenant" | "Landlord" | "">("");
+  const { login } = useAuth();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,14 +28,29 @@ function Login() {
       const res = await api.post("/auth/login", {
         email: email.trim().toLowerCase(),
         password,
-        role: role.trim(),
+        role: role.trim(), // send role so backend can verify if needed
       });
 
       if (res.status >= 200 && res.status < 300) {
-        // Optional: store token or user
-        // localStorage.setItem("token", res.data.token)
-        // localStorage.setItem("user", JSON.stringify(res.data.user))
-        navigate("/apartments");
+        const user = res.data.user as {
+          id: string;
+          name: string;
+          email: string;
+          role: "Tenant" | "Landlord";
+        };
+
+        //store user in AuthContext
+        login({ user });
+
+        // redirect based on role
+        if (user.role === "Tenant") {
+          navigate("/apartments", { replace: true });
+        } else if (user.role === "Landlord") {
+          navigate("/landlord", { replace: true });
+        } else {
+          // fallback (optional)
+          navigate("/", { replace: true });
+        }
       } else {
         setError("Login failed. Try again.");
       }

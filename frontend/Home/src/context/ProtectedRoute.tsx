@@ -37,9 +37,13 @@ export default function ProtectedRoute({
   children: React.ReactNode;
   roles?: Array<"Tenant" | "Landlord">;
 }) {
-  const { isAuthenticated, user } = useAuth();
+  const { isAuthenticated, user, hydrated } = useAuth();
   const location = useLocation();
 
+  if (!hydrated) {
+    // Optionally show a spinner; at minimum, don’t redirect yet
+    return null;
+  }
   if (!isAuthenticated) {
     return <Navigate to="/login" replace state={{ from: location }} />;
   }

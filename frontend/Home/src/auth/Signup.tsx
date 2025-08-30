@@ -1,20 +1,10 @@
-// Signup form using React functional Component and hooks for state management
-
+// src/auth/Signup.tsx
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 import api from "../api";
-import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 function Signup() {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
-
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,6 +14,11 @@ function Signup() {
     address: "",
     role: "",
   });
+
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
+  const { login } = useAuth(); // get login from context
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -47,16 +42,35 @@ function Signup() {
       name: formData.name.trim(),
       email: formData.email.trim().toLowerCase(),
       password: formData.password,
-      role: formData.role as "Tenant" | "Landlord",
-      address: formData.address.trim(),
       phone: String(formData.phone).trim(),
       age: Number(formData.age),
+      address: formData.address.trim(),
+      role: formData.role as "Tenant" | "Landlord",
     };
 
     try {
-      const res = await api.post("/users", payload); // baseURL http://127.0.0.1:8000
+      const res = await api.post("/users", payload);
+
       if (res.status >= 200 && res.status < 300) {
-        navigate("/apartments", { state: { userData: payload } });
+        // Pretend backend returns the user in response
+        const user = {
+          id: res.data.id || "temp-id",
+          name: payload.name,
+          email: payload.email,
+          role: payload.role,
+        };
+
+        // Save to AuthContext so user is authenticated right after signup
+        login({ user });
+
+        // Role-based redirect
+        if (user.role === "Tenant") {
+          navigate("/apartments", { replace: true });
+        } else if (user.role === "Landlord") {
+          navigate("/landlord", { replace: true });
+        } else {
+          navigate("/", { replace: true });
+        }
       } else {
         setError("Signup failed. Try again.");
       }
@@ -73,20 +87,17 @@ function Signup() {
     }
   };
 
-  // 100–199 → Informational (request received, continuing process)
-
-  // 200–299 → Success (request succeeded)
-
-  // 300–399 → Redirection (further action needed, resource moved, etc.)
-
-  // 400–499 → Client Error (problem with request, e.g., bad input, unauthorized)
-
-  // 500–599 → Server Error (problem on server side)
-
   return (
     <div className="d-flex justify-content-center align-items-center bg-secondary vh-100">
       <div className="bg-white p-3 rounded w-25">
         <h2>Sign Up</h2>
+
+        {error && (
+          <div className="alert alert-danger py-2" role="alert">
+            {error}
+          </div>
+        )}
+
         <form onSubmit={handleSubmit}>
           <div className="mb-3">
             <label htmlFor="name">
@@ -101,7 +112,7 @@ function Signup() {
               className="form-control rounded-0"
               onChange={handleChange}
               required
-            ></input>
+            />
           </div>
 
           <div className="mb-3">
@@ -117,7 +128,7 @@ function Signup() {
               className="form-control rounded-0"
               onChange={handleChange}
               required
-            ></input>
+            />
           </div>
 
           <div className="mb-3">
@@ -133,7 +144,7 @@ function Signup() {
               onChange={handleChange}
               minLength={8}
               required
-            ></input>
+            />
           </div>
 
           <div className="mb-3">
@@ -150,9 +161,10 @@ function Signup() {
             >
               <option value="">Select role…</option>
               <option value="Tenant">Tenant</option>
-              <option value="LandLord">Landlord</option>
+              <option value="Landlord">Landlord</option>
             </select>
           </div>
+
           <div className="form-group col-md-6">
             <label htmlFor="address">Address</label>
             <input
@@ -162,22 +174,25 @@ function Signup() {
               value={formData.address}
               onChange={handleChange}
               placeholder="1234 Main St"
+              required
             />
           </div>
+
           <div className="mb-3">
             <label htmlFor="phone">
               <strong>Phone</strong>
             </label>
             <input
               id="phone"
-              type="number"
+              type="tel"
               placeholder="Phone Number"
               name="phone"
               value={formData.phone}
               onChange={handleChange}
               required
-            ></input>
+            />
           </div>
+
           <div className="mb-3">
             <label htmlFor="age">
               <strong>Age</strong>
@@ -190,13 +205,14 @@ function Signup() {
               value={formData.age}
               onChange={handleChange}
               required
-            ></input>
+            />
           </div>
 
           <button type="submit" className="btn btn-success w-100 rounded-0">
-            {loading ? "Signing Up..." : "Sign Up"}
+            {loading ? "Signing Up…" : "Sign Up"}
           </button>
         </form>
+
         <p>Already have an account?</p>
         <Link
           to="/login"

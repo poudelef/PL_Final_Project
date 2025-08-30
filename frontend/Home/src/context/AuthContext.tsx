@@ -7,6 +7,7 @@ type AuthState = {
   isAuthenticated: boolean;
   user: User | null;
   token: string | null;
+  hydrated: boolean;
   login: (data: { user: User; token?: string }) => void;
   logout: () => void;
 };
@@ -16,6 +17,7 @@ const AuthContext = createContext<AuthState | null>(null);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
   const [token, setToken] = useState<string | null>(null);
+  const [hydrated, setHydrated] = useState(false);
 
   // Restore auth on refresh
   useEffect(() => {
@@ -23,6 +25,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const rawToken = localStorage.getItem("token");
     if (rawUser) setUser(JSON.parse(rawUser));
     if (rawToken) setToken(rawToken);
+    setHydrated(true);
   }, []);
 
   const login: AuthState["login"] = ({ user, token }) => {
@@ -40,8 +43,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   const value = useMemo(
-    () => ({ isAuthenticated: !!user, user, token, login, logout }),
-    [user, token]
+    () => ({ isAuthenticated: !!user, user, token, hydrated, login, logout }),
+    [user, token, hydrated]
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

@@ -29,7 +29,7 @@ createRoot(document.getElementById("root")!).render(
           <Route
             path="/apartments"
             element={
-              <ProtectedRoute roles={["Tenant", "Landlord"]}>
+              <ProtectedRoute roles={["Tenant"]}>
                 <Appartment />
               </ProtectedRoute>
             }
@@ -45,7 +45,7 @@ createRoot(document.getElementById("root")!).render(
           <Route
             path="/user"
             element={
-              <ProtectedRoute roles={["Tenant"]}>
+              <ProtectedRoute roles={["Tenant", "Landlord"]}>
                 <User />
               </ProtectedRoute>
             }
