@@ -1,4 +1,6 @@
 import { useNavigate } from "react-router-dom";
+import HouseImg from "../assets/House.jpg";
+
 interface LandlordProps {
   name: string;
   email: string;
@@ -32,22 +34,54 @@ const AptCard = ({ apt, userData }: AptCardProps) => {
   };
 
   return (
-    <div className="apt-card border p-3 my-3 rounded shadow-sm">
-      <div className="apt-info mb-3">
-        <h4>{apt.app_location}</h4>
-        <p>Price: ${apt.price}</p>
-        <p>Bedrooms: {apt.bedrooms}</p>
-        <p>Bathrooms: {apt.bathrooms}</p>
-        <p>Kitchen: {apt.kitchen ? "Yes" : "No"}</p>
-        <p>Balcony: {apt.balcony ? "Yes" : "No"}</p>
-        <p>Hall: {apt.hall ? "Yes" : "No"}</p>
-        <p>Landlord: {apt.landlord.name}</p>
-      </div>
+    <div
+      className="card mb-4 shadow-lg border-0"
+      style={{ backgroundColor: "#bbe4e9" }} // soft pastel blue
+    >
+      <div className="row g-0">
+        {/* Image */}
+        <div className="col-md-4 d-flex align-items-center">
+          <img
+            src={HouseImg}
+            className="img-fluid rounded-start p-3"
+            alt="Apartment"
+          />
+        </div>
 
-      <div className="text-end">
-        <button className="btn btn-primary" onClick={onApplyClick}>
-          Apply
-        </button>
+        {/* Info */}
+        <div className="col-md-8">
+          <div className="card-body">
+            {/* Bigger Title */}
+            <h3 className="card-title fw-bold text-dark">{apt.app_location}</h3>
+
+            <h5 className="text-primary mb-3">
+              ${apt.price.toLocaleString()} / month
+            </h5>
+
+            <p className="card-text mb-1">
+              <strong>Bedrooms:</strong> {apt.bedrooms} |{" "}
+              <strong>Bathrooms:</strong> {apt.bathrooms}
+            </p>
+            <p className="card-text mb-1">
+              <strong>Kitchen:</strong> {apt.kitchen ? "Yes" : "No"} |{" "}
+              <strong>Hall:</strong> {apt.hall ? "Yes" : "No"} |{" "}
+              <strong>Balcony:</strong> {apt.balcony ? "Yes" : "No"}
+            </p>
+
+            <p className="card-text">
+              <small className="text-muted">
+                Landlord: {apt.landlord.name} ({apt.landlord.phone})
+              </small>
+            </p>
+
+            {/* Button */}
+            <div className="mt-3 text-end">
+              <button className="btn btn-primary px-4" onClick={onApplyClick}>
+                More Info
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

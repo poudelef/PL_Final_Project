@@ -41,8 +41,11 @@ function Appartment() {
   }, []);
 
   return (
-    <div className="container text-center">
-      <h1>Apartment List</h1>
+    <div
+      className="container text-center"
+      style={{ backgroundColor: "e1eacd" }}
+    >
+      <h1>Apartments</h1>
       <div className="row">
         {apartments.map((apt) => (
           <div className="col-md-6 mb-4" key={apt.app_location}>

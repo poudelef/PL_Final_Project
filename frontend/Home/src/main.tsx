@@ -6,7 +6,7 @@ import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./context/ProtectedRoute";
 
 import "bootstrap/dist/css/bootstrap.min.css";
-
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import Login from "./auth/Login";
 import Signup from "./auth/Signup";
 import Appartment from "./pages/appartment";
