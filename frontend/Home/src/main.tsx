@@ -14,6 +14,8 @@ import Apply_page from "./pages/apply";
 import User from "./pages/User";
 import LandLord_page from "./pages/Landlord";
 import UnAuthorizedPage from "./pages/UnAuthorizedPage";
+import Home from "./pages/Home";
+import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
@@ -60,7 +62,8 @@ createRoot(document.getElementById("root")!).render(
           />
 
           {/* Fallback */}
-          <Route path="*" element={<Login />} />
+          {/* <Route path="*" element={<Login />} /> */}
+          <Route path="*" element={<Home />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

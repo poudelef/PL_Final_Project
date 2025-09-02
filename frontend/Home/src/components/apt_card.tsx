@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import HouseImg from "../assets/House.jpg";
+import wooden from "../assets/Bg.png";
+import Apt1 from "../assets/House.jpg";
 
 interface LandlordProps {
   name: string;
@@ -36,13 +37,23 @@ const AptCard = ({ apt, userData }: AptCardProps) => {
   return (
     <div
       className="card mb-4 shadow-lg border-0"
-      style={{ backgroundColor: "#bbe4e9" }} // soft pastel blue
+      style={{
+        borderRadius: "15px",
+        position: "relative",
+        height: "300px",
+        width: "100%",
+        backgroundImage: `url(${wooden})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        overflow: "hidden",
+      }}
     >
       <div className="row g-0">
         {/* Image */}
         <div className="col-md-4 d-flex align-items-center">
           <img
-            src={HouseImg}
+            src={Apt1}
             className="img-fluid rounded-start p-3"
             alt="Apartment"
           />
@@ -52,31 +63,89 @@ const AptCard = ({ apt, userData }: AptCardProps) => {
         <div className="col-md-8">
           <div className="card-body">
             {/* Bigger Title */}
-            <h3 className="card-title fw-bold text-dark">{apt.app_location}</h3>
+            <h3
+              className="card-title fw-bold text-dark"
+              style={{
+                marginTop: 10,
+                fontSize: "clamp(14px, 1.6vw, 20px)",
+                lineHeight: 1.35,
+                opacity: 0.95,
+                textShadow: "0 4px 16px rgba(0,0,0,0.45)",
+              }}
+            >
+              {apt.app_location}
+            </h3>
 
-            <h5 className="text-primary mb-3">
+            <h5
+              className="text-primary mb-3"
+              style={{
+                marginTop: 10,
+                fontSize: "clamp(14px, 1.6vw, 20px)",
+                lineHeight: 1.35,
+                opacity: 0.95,
+                textShadow: "0 4px 16px rgba(0,0,0,0.45)",
+              }}
+            >
               ${apt.price.toLocaleString()} / month
             </h5>
 
-            <p className="card-text mb-1">
+            <p
+              className="card-text mb-1"
+              style={{
+                marginTop: 10,
+                fontSize: "clamp(14px, 1.6vw, 20px)",
+                lineHeight: 1.35,
+                opacity: 0.95,
+                textShadow: "0 4px 16px rgba(0,0,0,0.45)",
+              }}
+            >
               <strong>Bedrooms:</strong> {apt.bedrooms} |{" "}
               <strong>Bathrooms:</strong> {apt.bathrooms}
             </p>
-            <p className="card-text mb-1">
+            <p
+              className="card-text mb-1"
+              style={{
+                marginTop: 10,
+                fontSize: "clamp(14px, 1.6vw, 20px)",
+                lineHeight: 1.35,
+                opacity: 0.95,
+                textShadow: "0 4px 16px rgba(0,0,0,0.45)",
+              }}
+            >
               <strong>Kitchen:</strong> {apt.kitchen ? "Yes" : "No"} |{" "}
               <strong>Hall:</strong> {apt.hall ? "Yes" : "No"} |{" "}
               <strong>Balcony:</strong> {apt.balcony ? "Yes" : "No"}
             </p>
 
-            <p className="card-text">
+            <p
+              className="card-text"
+              style={{
+                marginTop: 10,
+                fontSize: "clamp(14px, 1.6vw, 20px)",
+                lineHeight: 1.35,
+                opacity: 0.95,
+                textShadow: "0 4px 16px rgba(0,0,0,0.45)",
+              }}
+            >
               <small className="text-muted">
                 Landlord: {apt.landlord.name} ({apt.landlord.phone})
               </small>
             </p>
 
             {/* Button */}
-            <div className="mt-3 text-end">
-              <button className="btn btn-primary px-4" onClick={onApplyClick}>
+            <div className="mt-3 text-center" style={{ paddingTop: "20px" }}>
+              <button
+                className="btn btn-primary px-4"
+                style={{
+                  marginTop: 0,
+                  fontSize: "clamp(14px, 1.6vw, 20px)",
+                  lineHeight: 1.35,
+                  opacity: 0.95,
+                  textShadow: "0 4px 16px rgba(0,0,0,0.45)",
+                  background: "#3C3C3C",
+                }}
+                onClick={onApplyClick}
+              >
                 More Info
               </button>
             </div>
