@@ -1,6 +1,6 @@
 // src/pages/apply.tsx
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import api from "../api";
 import { useAuth } from "../context/AuthContext";
 import Apt1 from "../assets/House.jpg";
@@ -40,6 +40,7 @@ function Apply() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const apartment: Apartment | undefined = (location.state as any)?.apartment;
+  const navigate = useNavigate();
 
   useEffect(() => {
     // If we have a logged-in user, fetch the full record from backend
@@ -65,43 +66,127 @@ function Apply() {
   return (
     <div className="container" style={{ marginTop: 20 }}>
       <div className="row align-items-stretch ">
-        <div className="col-md-6 border p-3 mb-3 mb-md-0 ">
+        <div
+          className="col-md-6 border p-6 mb-6 mb-md-0 "
+          style={{
+            borderStyle: "dashed",
+            borderColor: "#1a1818ff",
+            borderWidth: 50,
+            borderRadius: 10,
+          }}
+        >
           {apartment ? (
             <>
-              <h4 style={{ textAlign: "center" }}>
+              <h4
+                style={{
+                  textAlign: "center",
+                  marginTop: "10px",
+                  fontSize: "clamp(14px, 1.6vw, 20px)",
+                  lineHeight: 1.35,
+                  opacity: 0.95,
+                }}
+              >
                 <strong></strong> {apartment.app_location}
               </h4>
-              <p>
-                <strong>Price:</strong> ${apartment.price}
+              <p
+                style={{
+                  fontSize: "clamp(14px, 1.6vw, 20px)",
+                  lineHeight: 1.35,
+                  opacity: 0.95,
+                }}
+              >
+                <strong>Price:</strong> ${apartment.price} per month
               </p>
-              <p>
-                <strong>Bedrooms:</strong> {apartment.bedrooms}
+              <p
+                style={{
+                  fontSize: "clamp(14px, 1.6vw, 20px)",
+                  lineHeight: 1.35,
+                  opacity: 0.95,
+                }}
+              >
+                <strong>Bedrooms:</strong>
+                {apartment.bedrooms}
               </p>
-              <p>
+              <p
+                style={{
+                  fontSize: "clamp(14px, 1.6vw, 20px)",
+                  lineHeight: 1.35,
+                  opacity: 0.95,
+                }}
+              >
                 <strong>Bathrooms:</strong> {apartment.bathrooms}
               </p>
-              <p>
+              <p
+                style={{
+                  fontSize: "clamp(14px, 1.6vw, 20px)",
+                  lineHeight: 1.35,
+                  opacity: 0.95,
+                }}
+              >
                 <strong>Kitchen:</strong> {apartment.kitchen ? "Yes" : "No"}
               </p>
-              <p>
+              <p
+                style={{
+                  fontSize: "clamp(14px, 1.6vw, 20px)",
+                  lineHeight: 1.35,
+                  opacity: 0.95,
+                }}
+              >
                 <strong>Balcony:</strong> {apartment.balcony ? "Yes" : "No"}
               </p>
-              <p>
+              <p
+                style={{
+                  fontSize: "clamp(14px, 1.6vw, 20px)",
+                  lineHeight: 1.35,
+                  opacity: 0.95,
+                }}
+              >
                 <strong>Hall:</strong> {apartment.hall ? "Yes" : "No"}
               </p>
-              <p className="text-center">
+              <p
+                className="text-center"
+                style={{
+                  fontSize: "clamp(14px, 1.6vw, 20px)",
+                  lineHeight: 1.35,
+                  opacity: 0.95,
+                }}
+              >
                 -------------------LandLord Details-------------------
               </p>
-              <p>
+              <p
+                style={{
+                  fontSize: "clamp(14px, 1.6vw, 20px)",
+                  lineHeight: 1.35,
+                  opacity: 0.95,
+                }}
+              >
                 <strong>Name:</strong> {apartment.landlord?.name}
               </p>
-              <p>
+              <p
+                style={{
+                  fontSize: "clamp(14px, 1.6vw, 20px)",
+                  lineHeight: 1.35,
+                  opacity: 0.95,
+                }}
+              >
                 <strong>Phone:</strong> {apartment.landlord?.phone}
               </p>
-              <p>
+              <p
+                style={{
+                  fontSize: "clamp(14px, 1.6vw, 20px)",
+                  lineHeight: 1.35,
+                  opacity: 0.95,
+                }}
+              >
                 <strong>Email:</strong> {apartment.landlord?.email}
               </p>
-              <p>
+              <p
+                style={{
+                  fontSize: "clamp(14px, 1.6vw, 20px)",
+                  lineHeight: 1.35,
+                  opacity: 0.95,
+                }}
+              >
                 <strong>Address:</strong> {apartment.landlord?.location}
               </p>
             </>
@@ -184,7 +269,15 @@ function Apply() {
         </div>
       </div>
       <div className=" justify-content-center" style={{ marginTop: 20 }}>
-        <p style={{ marginTop: "40px" }}>
+        <p
+          style={{
+            marginTop: "40px",
+            fontSize: "clamp(14px, 1.6vw, 20px)",
+            lineHeight: 1.35,
+            opacity: 0.95,
+            textShadow: "0 4px 16px rgba(0,0,0,0.45)",
+          }}
+        >
           <strong>Hello! {user ? user.name : ""} </strong>
         </p>
         <p>
@@ -194,15 +287,38 @@ function Apply() {
           your needs and expectations.
         </p>
         <p>When submitting your application, ensure that:</p>{" "}
-        <p style={{ paddingLeft: "20px" }}>
+        <p
+          style={{
+            paddingLeft: "20px",
+            fontSize: "clamp(14px, 1.6vw, 20px)",
+            lineHeight: 1.35,
+            opacity: 0.95,
+            textShadow: "0 4px 16px rgba(0,0,0,0.45)",
+          }}
+        >
           1. Your personal information (name, contact details, ID, etc.) is
           accurate and up to date.
         </p>
-        <p style={{ paddingLeft: "20px" }}>
+        <p
+          style={{
+            paddingLeft: "20px",
+            fontSize: "clamp(14px, 1.6vw, 20px)",
+            lineHeight: 1.35,
+            opacity: 0.95,
+            textShadow: "0 4px 16px rgba(0,0,0,0.45)",
+          }}
+        >
           2. You understand the terms of the lease, including rent amount,
           security deposit, and move-in requirements.
         </p>
-        <p>
+        <p
+          style={{
+            fontSize: "clamp(14px, 1.6vw, 20px)",
+            lineHeight: 1.35,
+            opacity: 0.95,
+            textShadow: "0 4px 16px rgba(0,0,0,0.45)",
+          }}
+        >
           <strong>Important: </strong>
           Incomplete or false information may result in delays or rejection of
           your application. Please double-check everything before proceeding.
@@ -215,8 +331,37 @@ function Apply() {
             marginTop: "40px",
           }}
         >
-          <button type="button" className="btn btn-primary btn-lg">
+          <button
+            type="button"
+            className="btn btn-primary btn-lg"
+            style={{
+              marginBottom: 40,
+              background: "#3C3C3C",
+              fontSize: "clamp(14px, 1.6vw, 20px)",
+              lineHeight: 1.35,
+              opacity: 0.95,
+              textShadow: "0 4px 16px rgba(0,0,0,0.45)",
+            }}
+            onClick={() => navigate("/apartments/apply/application")}
+          >
             Submit Application
+          </button>
+
+          <button
+            type="button"
+            className="btn btn-primary btn-lg"
+            style={{
+              marginBottom: 40,
+              marginLeft: "10px",
+              background: "#3C3C64",
+              fontSize: "clamp(14px, 1.6vw, 20px)",
+              lineHeight: 1.35,
+              opacity: 0.95,
+              textShadow: "0 4px 16px rgba(0,0,0,0.45)",
+            }}
+            onClick={() => navigate("/apartments")}
+          >
+            Back
           </button>
         </div>
       </div>

@@ -15,6 +15,7 @@ import User from "./pages/User";
 import LandLord_page from "./pages/Landlord";
 import UnAuthorizedPage from "./pages/UnAuthorizedPage";
 import Home from "./pages/Home";
+import Application_Sent from "./pages/application_sent";
 import "./index.css";
 
 createRoot(document.getElementById("root")!).render(
@@ -57,6 +58,14 @@ createRoot(document.getElementById("root")!).render(
             element={
               <ProtectedRoute roles={["Tenant"]}>
                 <Apply_page />
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/apartments/apply/application"
+            element={
+              <ProtectedRoute roles={["Tenant"]}>
+                <Application_Sent />
               </ProtectedRoute>
             }
           />

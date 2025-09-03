@@ -45,6 +45,50 @@ function Appartment() {
       className="container-fluid px-0 text-center"
       style={{ backgroundColor: "#D8C0A8" }}
     >
+      <div
+        style={{
+          // marginBottom: "20px",
+          // marginTop: "20px",
+          position: "relative",
+          backgroundColor: "#D8C0A8",
+          height: "100%",
+          display: "flex",
+          justifyContent: "center", // center horizontally
+          alignItems: "center", // center vertically
+          padding: "20px",
+        }}
+      >
+        <nav>
+          <form
+            className="d-flex"
+            style={{ gap: "10px", justifyContent: "center" }}
+          >
+            <input
+              className="form-control"
+              type="search"
+              placeholder="Search by address"
+              aria-label="Search"
+              style={{
+                width: "50vw", // half of screen width
+                borderRadius: "12px", // rounded edges
+                padding: "10px 14px", // nicer spacing
+              }}
+            />
+            <button
+              className="btn btn-outline-success"
+              type="submit"
+              style={{
+                backgroundColor: "white",
+                borderRadius: "12px", // match input
+                padding: "10px 20px",
+              }}
+            >
+              Search
+            </button>
+          </form>
+        </nav>
+      </div>
+
       {/* <h1>Apartments</h1> */}
       <div className="row">
         {apartments.map((apt) => (
