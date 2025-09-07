@@ -1,3 +1,11 @@
+// It uses React Context to share authentication data
+// (user, token, expiration time, etc.) across all components in your app.
+
+// Is the user logged in?
+// Who is the user?
+// When does their session expire?
+// How do we log them in or out?
+
 import {
   createContext,
   useContext,
@@ -23,6 +31,8 @@ type AuthState = {
 
 const EXPIRE_MS = 1 * 60 * 60 * 1000; // 1 hours
 const AuthContext = createContext<AuthState | null>(null);
+//  createContext is like the box that hold auth information
+//  any component can open the box using useAuth() and see if user is logged in or not
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
@@ -54,6 +64,21 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       logout(); // session over
     }, msLeft);
   }, []);
+
+  // useEffect in React Hook lets you run side effect in a component
+  // side effects= anything that happens outside the normal rendering of the component
+  // like fetching data from an API, setting up a subscription, or manually changing the DOM
+
+  //  Without useEffect, component can only render UI. with useEffect, we can make it do things after render
+  //  Basic Syntax:
+  // useEffect(()=>{
+  //    // logic
+  //    return ()=>{
+  //      // cleanup logic
+  //    };
+  // }. [dependencies])
+
+  // here we use useEffect to restore auth state from localStorage when the component mounts
 
   // Restore auth on refresh
   useEffect(() => {
@@ -87,6 +112,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     // Clean up timer on unmount or when rescheduling
     return clearLogoutTimer;
   }, [hydrated, expiresAt, scheduleAutoLogout]);
+  //  this useEffect runs whenever 'hydrated' or 'expiresAt' changes
+  // they are dependencies of this effect
 
   const login: AuthState["login"] = ({ user, token }) => {
     setUser(user);
@@ -136,3 +163,8 @@ export function useAuth() {
   if (!ctx) throw new Error("useAuth must be used within AuthProvider");
   return ctx;
 }
+
+// useAuth() is a custom hook that lets components easily access auth info
+// Example usage:
+// const { isAuthenticated, user, login, logout } = useAuth();
+//  we can check is the user is logged in, and call login() or logout() to change state
