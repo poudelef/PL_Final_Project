@@ -3,6 +3,10 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import api from "../api";
 import { useAuth } from "../context/AuthContext";
+import Apt1 from "../assets/House.jpg";
+import Apt2 from "../assets/Apt2.jpg";
+import Apt3 from "../assets/Apt3.jpg";
+import Apt4 from "../assets/Apt4.jpg";
 // ...imports for images omitted for brevity
 
 type User = {
@@ -109,7 +113,7 @@ function Apply() {
           </div>
         )}
 
-        <p
+        {/* <p
           style={{
             marginTop: "40px",
             fontSize: "clamp(14px, 1.6vw, 20px)",
@@ -120,7 +124,278 @@ function Apply() {
         >
           <strong>Hello! {user ? user.name : ""}</strong>
         </p>
-        {/* ... instructions ... */}
+        ... instructions ... */}
+
+        <div className="container" style={{ marginTop: 20 }}>
+          <div className="row align-items-stretch ">
+            <div
+              className="col-md-6 border p-6 mb-6 mb-md-0 "
+              style={{
+                borderStyle: "dashed",
+                borderColor: "#1a1818ff",
+                borderWidth: 50,
+                borderRadius: 10,
+              }}
+            >
+              {apartment ? (
+                <>
+                  <h4
+                    style={{
+                      textAlign: "center",
+                      marginTop: "10px",
+                      fontSize: "clamp(14px, 1.6vw, 20px)",
+                      lineHeight: 1.35,
+                      opacity: 0.95,
+                    }}
+                  >
+                    <strong></strong> {apartment.app_location}
+                  </h4>
+                  <p
+                    style={{
+                      fontSize: "clamp(14px, 1.6vw, 20px)",
+                      lineHeight: 1.35,
+                      opacity: 0.95,
+                    }}
+                  >
+                    <strong>Price:</strong> ${apartment.price} per month
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "clamp(14px, 1.6vw, 20px)",
+                      lineHeight: 1.35,
+                      opacity: 0.95,
+                    }}
+                  >
+                    <strong>Bedrooms:</strong>
+                    {apartment.bedrooms}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "clamp(14px, 1.6vw, 20px)",
+                      lineHeight: 1.35,
+                      opacity: 0.95,
+                    }}
+                  >
+                    <strong>Bathrooms:</strong> {apartment.bathrooms}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "clamp(14px, 1.6vw, 20px)",
+                      lineHeight: 1.35,
+                      opacity: 0.95,
+                    }}
+                  >
+                    <strong>Kitchen:</strong> {apartment.kitchen ? "Yes" : "No"}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "clamp(14px, 1.6vw, 20px)",
+                      lineHeight: 1.35,
+                      opacity: 0.95,
+                    }}
+                  >
+                    <strong>Balcony:</strong> {apartment.balcony ? "Yes" : "No"}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "clamp(14px, 1.6vw, 20px)",
+                      lineHeight: 1.35,
+                      opacity: 0.95,
+                    }}
+                  >
+                    <strong>Hall:</strong> {apartment.hall ? "Yes" : "No"}
+                  </p>
+                  <p
+                    className="text-center"
+                    style={{
+                      fontSize: "clamp(14px, 1.6vw, 20px)",
+                      lineHeight: 1.35,
+                      opacity: 0.95,
+                    }}
+                  >
+                    -------------------LandLord Details-------------------
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "clamp(14px, 1.6vw, 20px)",
+                      lineHeight: 1.35,
+                      opacity: 0.95,
+                    }}
+                  >
+                    <strong>Name:</strong> {apartment.landlord?.name}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "clamp(14px, 1.6vw, 20px)",
+                      lineHeight: 1.35,
+                      opacity: 0.95,
+                    }}
+                  >
+                    <strong>Phone:</strong> {apartment.landlord?.phone}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "clamp(14px, 1.6vw, 20px)",
+                      lineHeight: 1.35,
+                      opacity: 0.95,
+                    }}
+                  >
+                    <strong>Email:</strong> {apartment.landlord?.email}
+                  </p>
+                  <p
+                    style={{
+                      fontSize: "clamp(14px, 1.6vw, 20px)",
+                      lineHeight: 1.35,
+                      opacity: 0.95,
+                    }}
+                  >
+                    <strong>Address:</strong> {apartment.landlord?.location}
+                  </p>
+                </>
+              ) : (
+                <p>No apartment selected</p>
+              )}
+            </div>
+            <div
+              className="col-md-6"
+              style={{
+                display: "flex",
+                alignContent: "center",
+                justifyContent: "center",
+                textAlign: "center",
+              }}
+            >
+              <div
+                id="apartmentCarousel"
+                className="carousel slide w-100"
+                data-bs-ride="carousel"
+              >
+                <div className="carousel-inner">
+                  <div className="carousel-item active">
+                    <img
+                      src={Apt1}
+                      alt="Apartment 1"
+                      className="d-block w-100 img-thumbnail"
+                      style={{ objectFit: "cover" }}
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src={Apt2}
+                      alt="Apartment 2"
+                      className="d-block w-100 img-thumbnail"
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src={Apt3}
+                      alt="Apartment 3"
+                      className="d-block w-100 img-thumbnail"
+                    />
+                  </div>
+                  <div className="carousel-item">
+                    <img
+                      src={Apt4}
+                      alt="Apartment 4"
+                      className="d-block w-100 img-thumbnail"
+                    />
+                  </div>
+                </div>
+
+                {/* Prev/Next Buttons */}
+                <button
+                  className="carousel-control-prev"
+                  type="button"
+                  data-bs-target="#apartmentCarousel"
+                  data-bs-slide="prev"
+                >
+                  <span
+                    className="carousel-control-prev-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span className="visually-hidden">Previous</span>
+                </button>
+                <button
+                  className="carousel-control-next"
+                  type="button"
+                  data-bs-target="#apartmentCarousel"
+                  data-bs-slide="next"
+                >
+                  <span
+                    className="carousel-control-next-icon"
+                    aria-hidden="true"
+                  ></span>
+                  <span className="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className=" justify-content-center" style={{ marginTop: 20 }}>
+            <p
+              style={{
+                marginTop: "40px",
+                fontSize: "clamp(14px, 1.6vw, 20px)",
+                lineHeight: 1.35,
+                opacity: 0.95,
+                textShadow: "0 4px 16px rgba(0,0,0,0.45)",
+              }}
+            >
+              <strong>Hello! {user ? user.name : ""} </strong>
+            </p>
+            <p>
+              Before applying for any apartment, please carefully review and
+              verify all information provided in the listing. Make sure that
+              details such as location, rent, number of rooms, utilities, and
+              amenities match your needs and expectations.
+            </p>
+            <p>When submitting your application, ensure that:</p>{" "}
+            <p
+              style={{
+                paddingLeft: "20px",
+                fontSize: "clamp(14px, 1.6vw, 20px)",
+                lineHeight: 1.35,
+                opacity: 0.95,
+                textShadow: "0 4px 16px rgba(0,0,0,0.45)",
+              }}
+            >
+              1. Your personal information (name, contact details, ID, etc.) is
+              accurate and up to date.
+            </p>
+            <p
+              style={{
+                paddingLeft: "20px",
+                fontSize: "clamp(14px, 1.6vw, 20px)",
+                lineHeight: 1.35,
+                opacity: 0.95,
+                textShadow: "0 4px 16px rgba(0,0,0,0.45)",
+              }}
+            >
+              2. You understand the terms of the lease, including rent amount,
+              security deposit, and move-in requirements.
+            </p>
+            <p
+              style={{
+                fontSize: "clamp(14px, 1.6vw, 20px)",
+                lineHeight: 1.35,
+                opacity: 0.95,
+                textShadow: "0 4px 16px rgba(0,0,0,0.45)",
+              }}
+            >
+              <strong>Important: </strong>
+              Incomplete or false information may result in delays or rejection
+              of your application. Please double-check everything before
+              proceeding.
+            </p>
+            <div
+              style={{
+                alignContent: "center",
+                textAlign: "center",
+                marginBottom: "40px",
+                marginTop: "40px",
+              }}
+            ></div>
+          </div>
+        </div>
 
         <div
           style={{
@@ -146,7 +421,6 @@ function Apply() {
           >
             Submit Application
           </button>
-
           <button
             type="button"
             className="btn btn-secondary btn-lg"
@@ -170,3 +444,6 @@ function Apply() {
 }
 
 export default Apply;
+
+{
+}
