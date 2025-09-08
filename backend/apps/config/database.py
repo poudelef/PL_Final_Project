@@ -7,3 +7,4 @@ db = client["ApartmentListingDB"] # Create a database named "ApartmentListingDB"
 
 collection_users = db["users_collection"] # access or create a collectiion names "users_collection"
 collection_apts = db["apts_collection"] # access or create a collectiion names "apts_collection"
+Applied_apts = db["applied_apts"] # access or create a collectiion names "apts_collection"

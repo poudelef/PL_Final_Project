@@ -27,6 +27,7 @@ createRoot(document.getElementById("root")!).render(
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Signup />} />
           <Route path="/UnAuthorized_Access" element={<UnAuthorizedPage />} />
+          {/* <Route path="/landlord" element={<LandLord_page />} /> */}
 
           {/* Protected */}
           <Route

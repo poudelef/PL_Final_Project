@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.apps.routes.users import router 
 from backend.apps.routes.landlord import router as landlord_router
+from backend.apps.routes.applied import router as applied_router
 app = FastAPI()
 
 origins = [
@@ -19,3 +20,4 @@ app.add_middleware(
 
 app.include_router(router)
 app.include_router(landlord_router)
+app.include_router(applied_router)

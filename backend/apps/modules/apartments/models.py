@@ -1,4 +1,5 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr, Field
+from datetime import datetime
 from typing import Optional
 
 # Landlord schema using Pydantic
@@ -21,6 +22,13 @@ class Appartment(BaseModel):
     price: float
     available: bool
     landlord: LandLord
+
+class AppliedApartment(BaseModel):
+    tenant_id: str
+    tenant_name: str
+    tenant_email: EmailStr
+    apartment: Appartment
+    applied_at: datetime = Field(default_factory=datetime.utcnow)    
 
 class LandLord_info:
     def __init__(self, name, location, phone, email, age, gender):
