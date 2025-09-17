@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import AptCard from "../components/apt_card";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 interface Landlord {
   name: string;
@@ -25,19 +25,15 @@ interface Apartment {
 }
 
 function Appartment() {
+  const navigate = useNavigate();
   const [apartments, setApartments] = useState<Apartment[]>([]);
   const userData = useLocation().state?.userData;
 
   useEffect(() => {
     axios
       .get("http://localhost:8000/apartments/")
-      .then((response) => {
-        console.log("Fetched apartments:", response.data);
-        setApartments(response.data);
-      })
-      .catch((error) => {
-        console.error("Error fetching apartments:", error);
-      });
+      .then((response) => setApartments(response.data))
+      .catch((error) => console.error("Error fetching apartments:", error));
   }, []);
 
   return (
@@ -45,71 +41,53 @@ function Appartment() {
       className="container-fluid px-0 text-center"
       style={{ backgroundColor: "#D8C0A8" }}
     >
+      {/* top bar */}
       <div
-        style={{
-          // marginBottom: "20px",
-          // marginTop: "20px",
-          position: "relative",
-          backgroundColor: "#D8C0A8",
-          height: "100%",
-          display: "flex",
-          justifyContent: "center", // center horizontally
-          alignItems: "center", // center vertically
-          padding: "20px",
-        }}
+        className="d-flex align-items-center justify-content-center gap-3 py-3"
+        style={{ backgroundColor: "#D8C0A8" }}
       >
-        <nav>
-          <form
-            className="d-flex"
-            style={{ gap: "10px", justifyContent: "center" }}
+        <form className="d-flex gap-2" onSubmit={(e) => e.preventDefault()}>
+          <input
+            className="form-control"
+            type="search"
+            placeholder="Search by address"
+            aria-label="Search"
+            style={{ width: "50vw", borderRadius: 12 }}
+          />
+          <button
+            className="btn btn-outline-success bg-white"
+            type="submit"
+            style={{ borderRadius: 12 }}
           >
-            <input
-              className="form-control"
-              type="search"
-              placeholder="Search by address"
-              aria-label="Search"
-              style={{
-                width: "50vw", // half of screen width
-                borderRadius: "12px", // rounded edges
-                padding: "10px 14px", // nicer spacing
-              }}
-            />
-            <button
-              className="btn btn-outline-success"
-              type="submit"
-              style={{
-                backgroundColor: "white",
-                borderRadius: "12px", // match input
-                padding: "10px 20px",
-              }}
-            >
-              Search
-            </button>
-          </form>
-        </nav>
+            Search
+          </button>
+        </form>
+
+        <button
+          className="btn btn-warning rounded-circle d-flex align-items-center justify-content-center"
+          style={{ width: 45, height: 45 }}
+          onClick={() => navigate("/user/profile")}
+          aria-label="Profile"
+        >
+          H
+        </button>
       </div>
 
-      {/* <h1>Apartments</h1> */}
-      <div className="row">
-        {apartments.map((apt) => (
-          <div className="col-md-6 mb-4" key={apt.app_location}>
-            <AptCard apt={apt} userData={userData} />
-          </div>
-        ))}
+      {/* cards grid */}
+      <div className="container">
+        <div className="row g-4">
+          {apartments.map((apt) => (
+            <div className="col-md-6" key={apt.app_location}>
+              {/* add me-4 to push right margin if you want extra spacing */}
+              <div className="me-md-4">
+                <AptCard apt={apt} userData={userData} />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
 }
 
 export default Appartment;
-
-{
-  /* <ul>
-        {apartments.map((apt) => (
-          <li key={apt.app_location}>
-            <strong>{apt.app_location}</strong> — {apt.bedrooms} beds — $
-            {apt.price} — Landlord: {apt.landlord.name}
-          </li>
-        ))}
-      </ul> */
-}

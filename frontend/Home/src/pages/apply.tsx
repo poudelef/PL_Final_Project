@@ -72,7 +72,7 @@ function Apply() {
       // Use the exact path your backend exposes (leading slash is safest)
       await api.post("/applied_apartments", payload);
       // Navigate to a confirmation or “my applications” page
-      navigate("/Application_Sent", { replace: true });
+      navigate("/apartments/apply/application", { replace: true });
     } catch (e: any) {
       console.error(e);
       setError(e?.response?.data?.detail ?? "Failed to submit application.");

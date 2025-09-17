@@ -1,4 +1,6 @@
+import { useNavigate } from "react-router-dom";
 function ApplicationSent() {
+  const navigate = useNavigate();
   return (
     <div
       style={{
@@ -14,6 +16,15 @@ function ApplicationSent() {
       <p>Your application has been successfully submitted.</p>
       <p>Landlord will review you application and contact you.</p>
       <p>Thank You!</p>
+
+      <button
+        onClick={() => {
+          navigate(-1);
+        }}
+        className="btn btn-secondary btn-lg"
+      >
+        Back
+      </button>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import wooden from "../assets/Bg.png";
 import Apt1 from "../assets/House.jpg";
+import "./apt_card.css";
 
 interface LandlordProps {
   name: string;
@@ -30,142 +31,61 @@ type AptCardProps = {
 
 const AptCard = ({ apt, userData }: AptCardProps) => {
   const navigate = useNavigate();
+
   const onApplyClick = () => {
     navigate("./apply", { state: { user: userData, apartment: apt } });
   };
 
   return (
-    <>
-      <div
-        className="card mb-4 shadow-lg border-0"
-        style={{
-          borderRadius: "15px",
-          position: "relative",
-          height: "300px",
-          width: "100%",
-          backgroundImage: `url(${wooden})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          overflow: "hidden",
-        }}
-      >
-        <div>
-          <nav
-            className="navbar navbar-light bg-light"
-            style={{ height: "50px", borderRadius: "15px 15px 0 0" }}
-          >
-            <div className="container-fluid">
-              <h3
-                className="card-title fw-bold text-dark"
-                style={{
-                  marginTop: 10,
-                  fontSize: "clamp(14px, 1.6vw, 20px)",
-                  lineHeight: 1.35,
-                  opacity: 0.95,
-                  textShadow: "0 4px 16px rgba(0,0,0,0.45)",
-                }}
-              >
-                {apt.app_location}
-              </h3>
-            </div>
-          </nav>
+    <div className="card shadow-sm border-0 apt-card">
+      <div className="card-header bg-light py-2">
+        <h3 className="h6 mb-0">{apt.app_location}</h3>
+      </div>
+
+      <div className="row g-0">
+        <div className="col-md-4 d-flex align-items-center">
+          <img
+            src={Apt1}
+            className="img-fluid rounded-start p-3"
+            alt="Apartment"
+          />
         </div>
-        <div className="row g-0">
-          {/* Image */}
-          <div className="col-md-4 d-flex align-items-center">
-            <img
-              src={Apt1}
-              className="img-fluid rounded-start p-3"
-              alt="Apartment"
-            />
-          </div>
 
-          {/* Info */}
-          <div className="col-md-8">
-            <div className="card-body">
-              {/* Bigger Title */}
+        <div className="col-md-8">
+          <div className="card-body">
+            <h5 className="text-primary mb-3">
+              ${apt.price.toLocaleString()} / month
+            </h5>
 
-              <h5
-                className="text-primary mb-3"
-                style={{
-                  marginTop: 10,
-                  fontSize: "clamp(14px, 1.6vw, 20px)",
-                  lineHeight: 1.35,
-                  opacity: 0.95,
-                  textShadow: "0 4px 16px rgba(0,0,0,0.45)",
-                }}
-              >
-                ${apt.price.toLocaleString()} / month
-              </h5>
+            <p className="mb-1">
+              <strong>Bedrooms:</strong> {apt.bedrooms} &nbsp;|&nbsp;
+              <strong>Bathrooms:</strong> {apt.bathrooms}
+            </p>
 
-              <p
-                className="card-text mb-1"
-                style={{
-                  marginTop: 10,
-                  fontSize: "clamp(14px, 1.6vw, 20px)",
-                  lineHeight: 1.35,
-                  opacity: 0.95,
-                  textShadow: "0 4px 16px rgba(0,0,0,0.45)",
-                }}
-              >
-                <strong>Bedrooms:</strong> {apt.bedrooms} |{" "}
-                <strong>Bathrooms:</strong> {apt.bathrooms}
-              </p>
-              <p
-                className="card-text mb-1"
-                style={{
-                  marginTop: 10,
-                  fontSize: "clamp(14px, 1.6vw, 20px)",
-                  lineHeight: 1.35,
-                  opacity: 0.95,
-                  textShadow: "0 4px 16px rgba(0,0,0,0.45)",
-                }}
-              >
-                <strong>Kitchen:</strong> {apt.kitchen ? "Yes" : "No"} |{" "}
-                <strong>Hall:</strong> {apt.hall ? "Yes" : "No"} |{" "}
-                <strong>Balcony:</strong> {apt.balcony ? "Yes" : "No"}
-              </p>
+            <p className="mb-1">
+              <strong>Kitchen:</strong> {apt.kitchen ? "Yes" : "No"}{" "}
+              &nbsp;|&nbsp;
+              <strong>Hall:</strong> {apt.hall ? "Yes" : "No"} &nbsp;|&nbsp;
+              <strong>Balcony:</strong> {apt.balcony ? "Yes" : "No"}
+            </p>
 
-              <p
-                className="card-text"
-                style={{
-                  marginTop: 10,
-                  fontSize: "clamp(14px, 1.6vw, 20px)",
-                  lineHeight: 1.35,
-                  opacity: 0.95,
-                  textShadow: "0 4px 16px rgba(0,0,0,0.45)",
-                }}
-              >
-                <small className="text-muted">
-                  Landlord: {apt.landlord.name} ({apt.landlord.phone})
-                </small>
-              </p>
+            <p className="text-muted mb-3">
+              Landlord: {apt.landlord.name} ({apt.landlord.phone})
+            </p>
 
-              {/* Button */}
-              <div
-                className="mt-3 text-center"
-                style={{ paddingBottom: "20px" }}
+            <div className="text-center pb-2">
+              <button
+                className="btn btn-dark px-4"
+                onClick={onApplyClick}
+                style={{ marginTop: "20px" }}
               >
-                <button
-                  className="btn btn-primary px-4"
-                  style={{
-                    fontSize: "clamp(14px, 1.6vw, 20px)",
-                    lineHeight: 1.35,
-                    opacity: 0.95,
-                    textShadow: "0 4px 16px rgba(0,0,0,0.45)",
-                    background: "#3C3C3C",
-                  }}
-                  onClick={onApplyClick}
-                >
-                  More Info
-                </button>
-              </div>
+                More Info
+              </button>
             </div>
           </div>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 
